@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toko Anomali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/produk.css">
+<link rel="stylesheet" href="css/keranjang.css">
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading" class="loading">
+  <div class="load-inner">
+    <div class="load-logo">TOKO<br>ANOMALI</div>
+    <div class="load-bar"><div class="load-progress"></div></div>
+  </div>
+</div>
+
+<!-- NOTIFICATION -->
+<div id="notif" class="notif"></div>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+  <div class="nav-logo" onclick="goHome()">
+    <span class="logo-dot"></span>
+    <span>TOKO ANOMALI</span>
+  </div>
+  <div class="nav-search" id="navSearch">
+    <input type="text" id="searchInput" placeholder="Cari produk, kategori..." autocomplete="off" oninput="handleSearch(this.value)" onkeydown="if(event.key==='Enter') doSearch()">
+    <button class="search-icon-btn" onclick="doSearch()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <div class="search-dropdown" id="searchDropdown"></div>
+  </div>
+  <div class="nav-actions">
+    <!-- WISHLIST BTN -->
+    <button class="nav-icon-btn" id="wishlistBtn" onclick="openWishlistPanel()" title="Wishlist">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      <span class="nav-badge" id="wishlistCount" style="display:none">0</span>
+    </button>
+    <!-- CART BTN -->
+    <button class="nav-icon-btn nav-cart-active" id="cartBtn" onclick="openCart()" title="Keranjang">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="nav-badge" id="cartCount">0</span>
+    </button>
+    <!-- HISTORY BTN -->
+    <button class="nav-icon-btn" id="historyBtn" onclick="openHistoryPanel()" title="Riwayat Pembelian">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span class="nav-badge" id="historyCount" style="display:none">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- PROMO TICKER -->
+<div class="promo-bar" id="promoBar">
+  <div class="promo-track">
+    <span>🔥 PROMO SPESIAL HARI INI &nbsp;•&nbsp; GRATIS ONGKIR MIN. RP 100.000 &nbsp;•&nbsp; DISKON HINGGA 50% &nbsp;•&nbsp; CASHBACK 10% MEMBER BARU &nbsp;•&nbsp; 🔥 PROMO SPESIAL HARI INI &nbsp;•&nbsp; GRATIS ONGKIR MIN. RP 100.000 &nbsp;•&nbsp; DISKON HINGGA 50% &nbsp;•&nbsp; CASHBACK 10% MEMBER BARU</span>
+  </div>
+</div>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="homePage">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow g1"></div>
+    <div class="hero-glow g2"></div>
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="hero-chip">✦ New Arrivals 2026</div>
+        <h1 class="hero-title">UPDATE<br><span class="hero-outline">YOUR</span><br>STYLE.</h1>
+        <p class="hero-sub">Gaming • Beauty • Fashion • Electronic<br>Semua ada, semua terbaik.</p>
+        <div class="hero-ctas">
+          <button class="btn-primary" onclick="scrollToKategori()">Jelajahi Produk</button>
+          <button class="btn-ghost" onclick="openCategory('fashion')">Lihat Fashion →</button>
+        </div>
+      </div>
+      <!-- PROMO BANNER SLIDER -->
+      <div class="promo-slider-wrap">
+        <div class="promo-slider" id="promoSlider">
+
+          <!-- SLIDE 1: Gaming -->
+          <div class="promo-slide slide-gaming" onclick="openCategory('gaming')">
+            <img src="assets/GamingAccessories/banner gaming.jpeg" alt="Gaming Banner"
+              onerror="this.style.display='none'">
+          </div>
+
+          <!-- SLIDE 2: Beauty -->
+          <div class="promo-slide slide-beauty" onclick="openCategory('beauty')">
+            <img src="assets/GamingAccessories/BeautyItems/banner beauty.jpeg" alt="Beauty Banner"
+              onerror="this.style.display='none'">
+          </div>
+
+          <!-- SLIDE 3: Fashion -->
+          <div class="promo-slide slide-fashion" onclick="openCategory('fashion')">
+            <img src="assets/GamingAccessories/BeautyItems/CoolClothes/banner clothes.jpeg" alt="Fashion Banner"
+              onerror="this.style.display='none'">
+          </div>
+
+          <!-- SLIDE 4: Electronic -->
+          <div class="promo-slide slide-electronic" onclick="openCategory('electronic')">
+            <img src="assets/GamingAccessories/BeautyItems/CoolClothes/ElectronicDevices/banner electronic.jpeg" alt="Electronic Banner"
+              onerror="this.style.display='none'">
+          </div>
+
+        </div>
+
+        <!-- ARROWS -->
+        <button class="slider-arrow slider-prev" onclick="slidePrev(event)" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="slider-arrow slider-next" onclick="slideNext(event)" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <!-- DOTS -->
+        <div class="slider-dots" id="sliderDots">
+          <button class="sdot active" onclick="goSlide(0, event)"></button>
+          <button class="sdot" onclick="goSlide(1, event)"></button>
+          <button class="sdot" onclick="goSlide(2, event)"></button>
+          <button class="sdot" onclick="goSlide(3, event)"></button>
+        </div>
+
+        <!-- CATEGORY THUMBS -->
+        <div class="slider-thumbs">
+          <button class="sthmb active" onclick="goSlide(0, event)" title="Gaming">🎮</button>
+          <button class="sthmb" onclick="goSlide(1, event)" title="Beauty">✨</button>
+          <button class="sthmb" onclick="goSlide(2, event)" title="Fashion">👗</button>
+          <button class="sthmb" onclick="goSlide(3, event)" title="Electronic">📱</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-num">10K+</span><span class="stat-label">Produk Terjual</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-num">4.9</span><span class="stat-label">Kepuasan Pelanggan</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-num">24/7</span><span class="stat-label">Siap Melayani</span></div>
+    <div class="stat-div"></div>
+    <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Produk Original</span></div>
+  </div>
+
+  <!-- KATEGORI -->
+  <section class="section" id="kategoriSection">
+    <div class="section-head">
+      <div class="section-label">— Koleksi Kami</div>
+      <h2 class="section-title">KATEGORI <span class="title-outline">PRODUK</span></h2>
+    </div>
+    <div class="cat-grid cat-grid-4">
+      <div class="cat-card cat-gaming" onclick="openCategory('gaming')">
+        <div class="cat-img-wrap">
+          <img src="assets/GamingAccessories/Gaming Accessories.JPEG" alt="Gaming" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2e,#16213e)'">
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+          <span class="cat-icon">🎮</span>
+          <h3>Gaming Accessories</h3>
+          <p>25 Produk Terpilih</p>
+          <span class="cat-arrow">→</span>
+        </div>
+      </div>
+      <div class="cat-card cat-beauty" onclick="openCategory('beauty')">
+        <div class="cat-img-wrap">
+          <img src="assets/GamingAccessories/BeautyItems/Beauty Items.JPEG" alt="Beauty" onerror="this.parentElement.style.background='linear-gradient(135deg,#3d1f3a,#6b2d67)'">
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+          <span class="cat-icon">✨</span>
+          <h3>Beauty Items</h3>
+          <p>25 Produk Terpilih</p>
+          <span class="cat-arrow">→</span>
+        </div>
+      </div>
+      <div class="cat-card cat-fashion" onclick="openCategory('fashion')">
+        <div class="cat-img-wrap">
+          <img src="assets/GamingAccessories/BeautyItems/CoolClothes/Quality Restoration-AI UHD-Cool Clothes.jpeg" alt="Fashion" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a2e1a,#2d5a27)'">
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+          <span class="cat-icon">👗</span>
+          <h3>Cool Clothes</h3>
+          <p>25 Produk Terpilih</p>
+          <span class="cat-arrow">→</span>
+        </div>
+      </div>
+      <div class="cat-card cat-electronic" onclick="openCategory('electronic')">
+        <div class="cat-img-wrap">
+          <img src="assets/GamingAccessories/BeautyItems/CoolClothes/ElectronicDevices/Electronic Devices.JPEG" alt="Electronic" onerror="this.parentElement.style.background='linear-gradient(135deg,#0d1f2e,#1a3a5c)'">
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+          <span class="cat-icon">📱</span>
+          <h3>Electronic Devices</h3>
+          <p>25 Produk Terpilih</p>
+          <span class="cat-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUK TERLARIS -->
+  <section class="section section-alt">
+    <div class="section-head">
+      <div class="section-label">— Paling Dicari</div>
+      <h2 class="section-title">PRODUK <span class="title-outline">TERLARIS</span></h2>
+    </div>
+    <div class="featured-grid" id="featuredGrid"></div>
+  </section>
+
+  <!-- KEUNGGULAN -->
+  <section class="section">
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🚀</div>
+        <h4>Pengiriman Cepat</h4>
+        <p>Same day delivery untuk area Jakarta & sekitarnya</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛡️</div>
+        <h4>Produk Original</h4>
+        <p>100% garansi keaslian, bukan barang KW</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💳</div>
+        <h4>Bayar Fleksibel</h4>
+        <p>Transfer, e-wallet, COD semua bisa</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔄</div>
+        <h4>Retur Mudah</h4>
+        <p>7 hari retur jika produk tidak sesuai</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="section section-alt">
+    <div class="section-head">
+      <div class="section-label">— Ulasan Pelanggan</div>
+      <h2 class="section-title">APA KATA <span class="title-outline">MEREKA</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p>Produknya original dan pengiriman cepat banget! Packing juga rapi. Sudah order 5x dan selalu puas!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SW</div>
+          <div><strong>Sarah W.</strong><span>Jakarta Selatan</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p>Pelayanan ramah, produk sesuai ekspektasi. CS-nya responsif 24 jam. Highly recommended!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">BG</div>
+          <div><strong>Bahlil❤Ghufron</strong><span>Bandung</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p>Harga terjangkau dengan kualitas premium. Gaming gear di sini terbaik se-Indonesia! Love it!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">NK</div>
+          <div><strong>Nina K.</strong><span>Surabaya</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="nl-glow"></div>
+    <div class="nl-content">
+      <div class="nl-badge">📧 Newsletter</div>
+      <h2>Dapatkan Promo <span class="title-outline">Terbaru!</span></h2>
+      <p>Subscribe dan dapatkan diskon 15% untuk pembelian pertamamu</p>
+      <form class="nl-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" placeholder="Masukkan email kamu..." required>
+        <button type="submit">Subscribe →</button>
+      </form>
+    </div>
+  </section>
+
+</div><!-- end #homePage -->
+
+<!-- ===== CATEGORY PAGE ===== -->
+<div id="categoryPage" class="hidden">
+  <div class="cat-page-header">
+    <div class="cat-page-inner">
+      <button class="back-btn" onclick="goHome()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali
+      </button>
+      <h1 id="catPageTitle">Gaming Accessories</h1>
+    </div>
+  </div>
+  <div class="cat-page-body">
+    <div class="filter-bar">
+      <div class="filter-pills" id="filterPills">
+        <button class="pill active" onclick="filterPrice('all',this)">Semua</button>
+        <button class="pill" onclick="filterPrice('low',this)">&lt; Rp 200rb</button>
+        <button class="pill" onclick="filterPrice('mid',this)">Rp 200rb – 500rb</button>
+        <button class="pill" onclick="filterPrice('high',this)">&gt; Rp 500rb</button>
+      </div>
+      <select class="sort-select" onchange="sortProducts(this.value)">
+        <option value="">Urutkan</option>
+        <option value="price-asc">Harga: Rendah → Tinggi</option>
+        <option value="price-desc">Harga: Tinggi → Rendah</option>
+        <option value="name">Nama: A–Z</option>
+      </select>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</div>
+
+<!-- ===== WISHLIST PANEL ===== -->
+<div class="cart-overlay" id="wishlistOverlay" onclick="closeWishlistPanel()"></div>
+<aside class="cart-panel" id="wishlistPanel">
+  <div class="cp-header">
+    <h3>❤️ Wishlist Saya</h3>
+    <div class="cp-header-right">
+      <span id="wpCount" class="cp-count-badge">0 item</span>
+      <button class="cp-close" onclick="closeWishlistPanel()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="cp-items" id="wpItems"></div>
+  <div class="cp-footer" id="wpFooter" style="display:none">
+    <button class="cp-checkout-btn" onclick="moveAllWishlistToCart()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Pindah Semua ke Keranjang
+    </button>
+  </div>
+</aside>
+
+<!-- ===== HISTORY PANEL ===== -->
+<div class="cart-overlay" id="historyOverlay" onclick="closeHistoryPanel()"></div>
+<aside class="cart-panel history-panel" id="historyPanel">
+  <div class="cp-header">
+    <h3>🕐 Riwayat Pembelian</h3>
+    <div class="cp-header-right">
+      <span id="hpCount" class="cp-count-badge">0 transaksi</span>
+      <button class="cp-close" onclick="closeHistoryPanel()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="cp-items" id="hpItems" style="padding:12px 16px"></div>
+</aside>
+
+<!-- ===== RATING MODAL ===== -->
+<div class="modal-overlay" id="ratingOverlay" onclick="if(event.target===this)closeRatingModal()"></div>
+<div class="rating-modal" id="ratingModal">
+  <div class="cmo-header">
+    <h2>⭐ Beri Ulasan</h2>
+    <button class="cmo-close" onclick="closeRatingModal()">✕</button>
+  </div>
+  <div class="rating-modal-body">
+    <div class="rating-product-info" id="ratingProductInfo"></div>
+    <div class="rating-stars-wrap">
+      <p class="rating-label">Berikan Rating Produk</p>
+      <div class="star-picker" id="starPicker">
+        <span class="star" data-v="1" onclick="selectStar(1)">★</span>
+        <span class="star" data-v="2" onclick="selectStar(2)">★</span>
+        <span class="star" data-v="3" onclick="selectStar(3)">★</span>
+        <span class="star" data-v="4" onclick="selectStar(4)">★</span>
+        <span class="star" data-v="5" onclick="selectStar(5)">★</span>
+      </div>
+      <p class="rating-text-label" id="ratingTextLabel">Pilih bintang di atas</p>
+    </div>
+    <div class="form-group">
+      <label>Komentar</label>
+      <textarea id="ratingComment" rows="3" placeholder="Ceritakan pengalaman belanja kamu..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Nama Kamu</label>
+      <input type="text" id="ratingName" placeholder="Nama yang tampil di ulasan">
+    </div>
+    <button class="cmo-btn" onclick="submitRating()" style="margin-top:4px">Kirim Ulasan ⭐</button>
+  </div>
+</div>
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-panel" id="cartPanel">
+  <div class="cp-header">
+    <h3>Keranjang Belanja</h3>
+    <div class="cp-header-right">
+      <span id="cpCount" class="cp-count-badge">0 item</span>
+      <button class="cp-close" onclick="closeCart()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="cp-items" id="cpItems">
+    <div class="cp-empty">
+      <div class="cp-empty-icon">🛍️</div>
+      <p>Keranjang kamu masih kosong</p>
+      <button onclick="closeCart();scrollToKategori()">Mulai Belanja →</button>
+    </div>
+  </div>
+  <div class="cp-footer" id="cpFooter" style="display:none">
+    <div class="cp-summary">
+      <div class="cp-row"><span>Subtotal</span><span id="cpSubtotal">Rp 0</span></div>
+      <div class="cp-row" id="cpShippingRow"><span>Ongkir</span><span id="cpShipping">Rp 15.000</span></div>
+      <div class="cp-row cp-row-total"><span>Total</span><span id="cpTotal">Rp 0</span></div>
+    </div>
+    <div class="cp-shipping-note" id="cpShippingNote"></div>
+    <button class="cp-checkout-btn" onclick="openCheckoutModal()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14h0v2.92z"/></svg>
+      Lanjut Checkout
+    </button>
+  </div>
+</aside>
+
+<!-- ===== CHECKOUT MODAL ===== -->
+<div class="modal-overlay" id="checkoutOverlay" onclick="if(event.target===this)closeCheckoutModal()"></div>
+<div class="checkout-modal" id="checkoutModal">
+  <div class="cmo-header">
+    <h2>Konfirmasi Pesanan</h2>
+    <button class="cmo-close" onclick="closeCheckoutModal()">✕</button>
+  </div>
+  <div class="cmo-body">
+    <!-- STEP 1: Review -->
+    <div class="cmo-step" id="step1">
+      <div class="cmo-step-label">
+        <span class="step-num active">1</span> Review Pesanan
+        <span class="step-num">2</span> Info Pengiriman
+        <span class="step-num">3</span> Konfirmasi
+      </div>
+      <div class="cmo-order-list" id="cmoOrderList"></div>
+      <div class="cmo-totals">
+        <div class="cmo-row"><span>Subtotal</span><span id="cmoSubtotal">Rp 0</span></div>
+        <div class="cmo-row"><span>Ongkir</span><span id="cmoShipping">Rp 15.000</span></div>
+        <div class="cmo-row cmo-row-total"><span>Total</span><span id="cmoTotal">Rp 0</span></div>
+      </div>
+      <button class="cmo-btn" onclick="goStep(2)">Lanjut → Info Pengiriman</button>
+    </div>
+    <!-- STEP 2: Delivery Info -->
+    <div class="cmo-step hidden" id="step2">
+      <div class="cmo-step-label">
+        <span class="step-num done">1</span> Review Pesanan
+        <span class="step-num active">2</span> Info Pengiriman
+        <span class="step-num">3</span> Konfirmasi
+      </div>
+      <div class="cmo-form">
+        <div class="form-group">
+          <label>Nama Lengkap *</label>
+          <input type="text" id="fNama" placeholder="Masukkan nama lengkap">
+        </div>
+        <div class="form-group">
+          <label>Nomor HP / WhatsApp *</label>
+          <input type="tel" id="fPhone" placeholder="Contoh: 08123456789">
+        </div>
+        <div class="form-group">
+          <label>Alamat Lengkap *</label>
+          <textarea id="fAlamat" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan..." rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Kota / Kabupaten *</label>
+            <input type="text" id="fKota" placeholder="Jakarta Selatan">
+          </div>
+          <div class="form-group">
+            <label>Kode Pos</label>
+            <input type="text" id="fKodepos" placeholder="12345">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Catatan (opsional)</label>
+          <input type="text" id="fCatatan" placeholder="Contoh: Jangan dilempar, barang fragile">
+        </div>
+      </div>
+      <div class="cmo-btn-row">
+        <button class="cmo-btn-outline" onclick="goStep(1)">← Kembali</button>
+        <button class="cmo-btn" onclick="goStep(3)">Lanjut → Konfirmasi</button>
+      </div>
+    </div>
+    <!-- STEP 3: Confirm -->
+    <div class="cmo-step hidden" id="step3">
+      <div class="cmo-step-label">
+        <span class="step-num done">1</span> Review Pesanan
+        <span class="step-num done">2</span> Info Pengiriman
+        <span class="step-num active">3</span> Konfirmasi
+      </div>
+      <div class="cmo-confirm-summary" id="cmoConfirmSummary"></div>
+      <button class="cmo-btn cmo-btn-wa" onclick="sendToWhatsApp()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Kirim Pesanan via WhatsApp
+      </button>
+      <p class="cmo-wa-note">Kamu akan diarahkan ke WhatsApp untuk melanjutkan pembayaran bersama admin kami.</p>
+      <button class="cmo-btn-outline" onclick="goStep(2)">← Edit Info</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CART -->
+<div class="floating-cart" id="floatingCart" onclick="openCart()">
+  🛒 <span id="floatLabel">Lihat Keranjang</span>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo-dot"></span>TOKO ANOMALI
+      </div>
+      <p>E-commerce modern dengan produk berkualitas tinggi. Belanja mudah, harga bersahabat.</p>
+      <div class="footer-contact">
+        <span>📍 Jakarta, Indonesia</span>
+        <span>📞 +62 889-0502-1577</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Kategori</h5>
+      <a onclick="openCategory('gaming')">Gaming Accessories</a>
+      <a onclick="openCategory('beauty')">Beauty Items</a>
+      <a onclick="openCategory('fashion')">Cool Clothes</a>
+      <a onclick="openCategory('electronic')">Electronic Devices</a>
+    </div>
+    <div class="footer-col">
+      <h5>Bantuan</h5>
+      <a href="#">Cara Pemesanan</a>
+      <a href="#">Kebijakan Retur</a>
+      <a href="#">FAQ</a>
+      <a href="#">Hubungi Kami</a>
+    </div>
+    <div class="footer-col">
+      <h5>Ikuti Kami</h5>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">Facebook</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Toko Anomali. All rights reserved. Made with ❤️ in Indonesia</p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/produk.js"></script>
+<script src="js/keranjang.js"></script>
+<script src="js/wishlist.js"></script>
+<script src="js/history.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+/* ── PROMO BANNER SLIDER ── */
+let currentSlide = 0;
+const TOTAL_SLIDES = 4;
+let sliderTimer = null;
+
+function updateSlider() {
+  const slider = document.getElementById('promoSlider');
+  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  document.querySelectorAll('.sdot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  document.querySelectorAll('.sthmb').forEach((t, i) => t.classList.toggle('active', i === currentSlide));
+}
+
+function goSlide(n, e) {
+  if (e) e.stopPropagation();
+  currentSlide = n;
+  updateSlider();
+  resetTimer();
+}
+
+function slideNext(e) {
+  if (e) e.stopPropagation();
+  currentSlide = (currentSlide + 1) % TOTAL_SLIDES;
+  updateSlider();
+  resetTimer();
+}
+
+function slidePrev(e) {
+  if (e) e.stopPropagation();
+  currentSlide = (currentSlide - 1 + TOTAL_SLIDES) % TOTAL_SLIDES;
+  updateSlider();
+  resetTimer();
+}
+
+function resetTimer() {
+  clearInterval(sliderTimer);
+  sliderTimer = setInterval(slideNext, 4500);
+}
+
+// Touch/swipe support
+(function() {
+  let startX = 0;
+  const wrap = document.getElementById ? null : null;
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrap = document.querySelector('.promo-slider-wrap');
+    if (!wrap) return;
+    wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) dx < 0 ? slideNext(null) : slidePrev(null);
+    });
+  });
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  resetTimer();
+});
+</script>
+</body>
+</html>
