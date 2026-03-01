@@ -900,3 +900,104 @@
   .rating-modal { border-radius: 16px 16px 0 0; top: auto; bottom: 0; left: 0; right: 0; transform: translateY(100%); width: 100%; max-width: 100%; }
   .rating-modal.open { transform: translateY(0); }
 }
+/* ============================================================
+   MOBILE RESPONSIVE ENHANCEMENTS — keranjang.css
+   ============================================================ */
+
+@media (max-width: 480px) {
+  /* ── CART & SIDE PANELS ── */
+  .cart-panel {
+    width: 100vw;
+    border-radius: 0;
+    border-left: none;
+  }
+  .cp-header { padding: 16px 18px; }
+  .cp-header h3 { font-size: 17px; }
+  .cp-items { padding: 12px 16px; gap: 10px; }
+
+  /* Cart item row */
+  .cp-item { padding: 10px; gap: 10px; }
+  .cp-item-thumb { width: 48px; height: 48px; }
+  .cp-item-name { font-size: 12px; }
+  .cp-item-price { font-size: 13px; }
+  .qty-btn { width: 24px; height: 24px; font-size: 14px; }
+  .qty-num { font-size: 13px; min-width: 20px; }
+
+  /* Cart footer */
+  .cp-footer { padding: 14px 16px; gap: 10px; }
+  .cp-row { font-size: 13px; }
+  .cp-row-total { font-size: 16px; }
+  .cp-row-total span:last-child { font-size: 18px; }
+  .cp-checkout-btn { padding: 13px; font-size: 15px; letter-spacing: 1px; }
+  .cp-shipping-note { font-size: 11px; padding: 7px; }
+
+  /* ── HISTORY PANEL ── */
+  .history-panel { width: 100vw; }
+
+  /* Order card */
+  .hist-order-card { padding: 12px; margin-bottom: 12px; }
+  .hist-order-id { font-size: 12px; }
+  .hist-order-total { font-size: 14px; }
+  .hist-order-date { font-size: 10px; }
+  .hist-order-buyer { font-size: 11px; gap: 10px; }
+  .hist-item-name { font-size: 12px; }
+  .hist-item-sub { font-size: 11px; }
+  .hist-item-thumb { width: 42px; height: 42px; }
+
+  /* ── CHECKOUT MODAL — bottom sheet on mobile ── */
+  .checkout-modal {
+    border-radius: 20px 20px 0 0;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    transform: translateY(100%);
+    transition: transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.38s;
+  }
+  .checkout-modal.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .cmo-header { padding: 16px 18px; }
+  .cmo-header h2 { font-size: 17px; }
+  .cmo-step { padding: 16px 18px; gap: 12px; }
+  .cmo-step-label { font-size: 11px; gap: 6px; }
+  .step-num { width: 22px; height: 22px; font-size: 10px; }
+  .form-row { grid-template-columns: 1fr; gap: 10px; }
+  .cmo-btn { padding: 13px; font-size: 15px; letter-spacing: 1px; }
+  .cmo-btn-outline { padding: 11px; font-size: 13px; }
+  .cmo-order-list { max-height: 220px; }
+  .cmo-order-item { padding: 10px; }
+  .cmo-item-img { width: 40px; height: 40px; font-size: 18px; }
+  .cmo-item-info strong { font-size: 12px; }
+  .cmo-item-subtotal { font-size: 12px; }
+
+  /* Confirm summary */
+  .cmo-confirm-row { font-size: 13px; }
+  .cmo-confirm-row .lbl { min-width: 90px; }
+
+  /* ── RATING MODAL — bottom sheet ── */
+  .rating-modal {
+    border-radius: 20px 20px 0 0;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    transform: translateY(100%);
+  }
+  .rating-modal.open { transform: translateY(0); }
+  .rating-modal-body { padding: 16px 18px 24px; gap: 12px; }
+  .star-picker .star { font-size: 30px; }
+  .rating-prod-name { font-size: 13px; }
+
+  /* ── WISHLIST PANEL ── */
+  .wl-select-bar { padding: 8px 12px; }
+  .wl-check-all { font-size: 12px; }
+  .wl-add-selected-btn { padding: 6px 12px; font-size: 11px; }
+  .wl-item { padding: 10px; gap: 8px; }
+}

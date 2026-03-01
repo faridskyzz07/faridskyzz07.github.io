@@ -225,3 +225,63 @@
   background: var(--green);
   color: #0b2e18;
 }
+/* ============================================================
+   MOBILE RESPONSIVE ENHANCEMENTS — navbar.css
+   ============================================================ */
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 14px;
+    gap: 8px;
+    height: auto;
+  }
+  .nav-logo {
+    font-size: 14px;
+    letter-spacing: 2px;
+    gap: 8px;
+  }
+  .logo-dot { width: 7px; height: 7px; }
+
+  /* Search row goes full width on 2nd line */
+  .nav-search {
+    order: 3;
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  .nav-search input {
+    padding: 9px 40px 9px 14px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  /* Actions stay on first row with logo */
+  .nav-actions {
+    margin-left: auto;
+    gap: 8px;
+  }
+  .nav-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+  .nav-icon-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+  .nav-badge {
+    top: -4px;
+    right: -4px;
+    font-size: 9px;
+    min-width: 16px;
+    height: 16px;
+  }
+
+  /* Search dropdown */
+  .search-dropdown {
+    top: calc(100% + 6px);
+    border-radius: 10px;
+  }
+  .sdrop-item { padding: 10px 14px; font-size: 13px; }
+}
