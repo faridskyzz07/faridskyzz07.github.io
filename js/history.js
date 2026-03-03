@@ -223,6 +223,11 @@ function submitRating() {
 
   closeRatingModal();
   renderHistoryPanel(); // re-render to reflect rating
+  // Re-render product cards so rating updates show live
+  if (typeof renderFeatured === 'function') renderFeatured();
+  if (typeof currentCategory !== 'undefined' && currentCategory && typeof renderProducts === 'function') {
+    renderProducts(currentProducts);
+  }
   showNotif(`⭐ Ulasan kamu berhasil disimpan! (${currentStarValue}/5)`);
   currentRatingTarget = null;
 }
