@@ -132,9 +132,14 @@ function buildProductCard(p, i = 0) {
         ${p.orig ? `<span class="pc-orig">${fmt(p.orig)}</span>` : ''}
         ${discount > 0 ? `<span class="pc-discount">-${discount}%</span>` : ''}
       </div>
-      <button class="pc-add-btn" id="addbtn-${p.id}" onclick="addToCart('${p.id}')">
-        <span>+ KERANJANG</span>
-      </button>
+      <div class="pc-btn-row">
+        <button class="pc-add-btn" id="addbtn-${p.id}" onclick="addToCart('${p.id}')">
+          <span>+ KERANJANG</span>
+        </button>
+        <button class="pc-buy-btn" onclick="buyNow('${p.id}')">
+          <span>BELI</span>
+        </button>
+      </div>
     </div>
   </div>`;
 }
@@ -226,6 +231,33 @@ function scrollToKategori() {
 /* ── FORMAT RUPIAH ── */
 function fmt(n) {
   return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+/* ── BUY NOW (add to cart checked-only, then open checkout) ── */
+function buyNow(id) {
+  // Add to cart if not already there
+  let product = null;
+  for (const prods of Object.values(PRODUCTS)) {
+    const found = prods.find(p => p.id === id);
+    if (found) { product = found; break; }
+  }
+  if (!product) product = FEATURED.find(p => p.id === id);
+  if (!product) return;
+
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty++;
+    existing.checked = true;
+  } else {
+    cart.push({ ...product, qty: 1, checked: true });
+  }
+
+  // Uncheck all others so only this item gets checked out
+  cart.forEach(c => { if (c.id !== id) c.checked = false; });
+
+  animateAddBtn(id);
+  updateCartBadge();
+  openCheckoutModal();
 }
 
 /* ── INIT ── */

@@ -21,8 +21,9 @@ function addToCart(id) {
   const existing = cart.find(c => c.id === id);
   if (existing) {
     existing.qty++;
+    existing.checked = true; // auto-check when qty increased
   } else {
-    cart.push({ ...product, qty: 1 });
+    cart.push({ ...product, qty: 1, checked: true }); // auto-checked on add
   }
 
   animateAddBtn(id);
@@ -97,8 +98,30 @@ function renderCartPanel() {
 
   footerEl.style.display = 'flex';
 
-  itemsEl.innerHTML = cart.map((item, i) => `
-    <div class="cp-item">
+  // select-all bar
+  const allChecked = cart.every(i => i.checked);
+  const someChecked = cart.some(i => i.checked);
+
+  itemsEl.innerHTML = `
+    <div class="cp-select-bar">
+      <label class="cp-check-all-wrap">
+        <input type="checkbox" id="cpCheckAll"
+          ${allChecked ? 'checked' : ''}
+          ${someChecked && !allChecked ? 'data-indeterminate="true"' : ''}
+          onchange="toggleCartCheckAll(this.checked)">
+        <span class="cp-checkmark"></span>
+        <span class="cp-check-label">Pilih Semua</span>
+      </label>
+      <span class="cp-selected-info">${cart.filter(i=>i.checked).length}/${cart.length} dipilih</span>
+    </div>
+  ` + cart.map((item, i) => `
+    <div class="cp-item ${item.checked ? '' : 'cp-item-unchecked'}">
+      <label class="cp-item-checkbox">
+        <input type="checkbox" class="cp-item-check" data-index="${i}"
+          ${item.checked ? 'checked' : ''}
+          onchange="toggleCartItem(${i}, this.checked)">
+        <span class="cp-checkmark"></span>
+      </label>
       <div class="cp-item-thumb">
         <img src="${item.img}" alt="${item.name}"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
@@ -117,27 +140,49 @@ function renderCartPanel() {
     </div>
   `).join('');
 
+  // fix indeterminate state (can't be set via HTML attr)
+  const checkAllEl = document.getElementById('cpCheckAll');
+  if (checkAllEl) checkAllEl.indeterminate = someChecked && !allChecked;
+
   updateCartTotals();
 }
 
-/* ── UPDATE TOTALS ── */
+/* ── UPDATE TOTALS (only checked items) ── */
 function updateCartTotals() {
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const shipping = subtotal >= 100000 ? 0 : 15000;
+  const checkedItems = cart.filter(i => i.checked);
+  const subtotal = checkedItems.reduce((s, i) => s + i.price * i.qty, 0);
+  const shipping = checkedItems.length === 0 ? 0 : (subtotal >= 100000 ? 0 : 15000);
   const total    = subtotal + shipping;
 
   document.getElementById('cpSubtotal').textContent = fmt(subtotal);
-  document.getElementById('cpShipping').textContent = shipping === 0 ? 'GRATIS ✨' : fmt(shipping);
+  document.getElementById('cpShipping').textContent = checkedItems.length === 0 ? '–' : (shipping === 0 ? 'GRATIS ✨' : fmt(shipping));
   document.getElementById('cpTotal').textContent    = fmt(total);
 
   const noteEl = document.getElementById('cpShippingNote');
-  if (shipping === 0) {
+  if (checkedItems.length === 0) {
+    noteEl.textContent = '☑️ Centang produk untuk menghitung total';
+    noteEl.style.display = 'block';
+  } else if (shipping === 0) {
     noteEl.textContent = '🎉 Kamu dapat gratis ongkir!';
     noteEl.style.display = 'block';
   } else {
-    const sisa = 100000 - cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const sisa = 100000 - subtotal;
     noteEl.textContent = `Tambah ${fmt(sisa)} lagi untuk gratis ongkir`;
     noteEl.style.display = 'block';
+  }
+
+  // Update checkout button state
+  const checkoutBtn = document.querySelector('#cpFooter .cp-checkout-btn');
+  if (checkoutBtn) {
+    if (checkedItems.length === 0) {
+      checkoutBtn.disabled = true;
+      checkoutBtn.style.opacity = '0.45';
+      checkoutBtn.style.cursor = 'not-allowed';
+    } else {
+      checkoutBtn.disabled = false;
+      checkoutBtn.style.opacity = '1';
+      checkoutBtn.style.cursor = 'pointer';
+    }
   }
 }
 
@@ -158,4 +203,16 @@ function removeFromCart(index) {
   updateCartBadge();
   renderCartPanel();
   showNotif(`🗑️ ${name} dihapus`);
+}
+
+/* ── CART CHECKBOX FUNCTIONS ── */
+function toggleCartItem(index, checked) {
+  cart[index].checked = checked;
+  // Re-render to update dim state and totals
+  renderCartPanel();
+}
+
+function toggleCartCheckAll(checked) {
+  cart.forEach(i => i.checked = checked);
+  renderCartPanel();
 }

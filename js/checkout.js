@@ -7,7 +7,9 @@ const WA_NUMBER = '6288905021577'; // ← Ganti nomor WA toko kamu
 
 /* ── OPEN / CLOSE MODAL ── */
 function openCheckoutModal() {
+  const checkedItems = cart.filter(i => i.checked);
   if (cart.length === 0) { showNotif('⚠️ Keranjang masih kosong!'); return; }
+  if (checkedItems.length === 0) { showNotif('⚠️ Centang dulu produk yang ingin di-checkout!'); return; }
   closeCart();
   populateStep1();
   goStep(1);
@@ -37,11 +39,12 @@ function goStep(n) {
 
 /* ── STEP 1: ORDER REVIEW ── */
 function populateStep1() {
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const checkedItems = cart.filter(i => i.checked);
+  const subtotal = checkedItems.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = subtotal >= 100000 ? 0 : 15000;
   const total    = subtotal + shipping;
 
-  document.getElementById('cmoOrderList').innerHTML = cart.map(item => `
+  document.getElementById('cmoOrderList').innerHTML = checkedItems.map(item => `
     <div class="cmo-order-item">
       <div class="cmo-item-img">
         <img src="${item.img}" alt="${item.name}"
@@ -99,7 +102,8 @@ function populateStep3() {
   const kodepos = document.getElementById('fKodepos').value.trim();
   const catatan = document.getElementById('fCatatan').value.trim();
 
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const checkedItems = cart.filter(i => i.checked);
+  const subtotal = checkedItems.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = subtotal >= 100000 ? 0 : 15000;
   const total    = subtotal + shipping;
 
@@ -119,8 +123,8 @@ function populateStep3() {
     </div>
   `).join('') + `
     <div class="cmo-confirm-row" style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border)">
-      <span class="lbl">Produk (${cart.length} item)</span>
-      <span class="val">${cart.map(c => `${c.name} ×${c.qty}`).join(', ')}</span>
+      <span class="lbl">Produk (${checkedItems.length} item)</span>
+      <span class="val">${checkedItems.map(c => `${c.name} ×${c.qty}`).join(', ')}</span>
     </div>
   `;
 }
@@ -134,7 +138,8 @@ function sendToWhatsApp() {
   const kodepos = document.getElementById('fKodepos').value.trim();
   const catatan = document.getElementById('fCatatan').value.trim();
 
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const checkedItems = cart.filter(i => i.checked);
+  const subtotal = checkedItems.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = subtotal >= 100000 ? 0 : 15000;
   const total    = subtotal + shipping;
 
@@ -151,7 +156,7 @@ function sendToWhatsApp() {
   msg += `\n📦 *Detail Pesanan*\n`;
   msg += `━━━━━━━━━━━━━━━━━━━━\n`;
 
-  cart.forEach((item, idx) => {
+  checkedItems.forEach((item, idx) => {
     const itemTotal = item.price * item.qty;
     msg += `${idx + 1}. ${item.name}\n`;
     msg += `   ${fmt(item.price)} × ${item.qty} = *${fmt(itemTotal)}*\n\n`;
@@ -167,17 +172,17 @@ function sendToWhatsApp() {
   const url = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 
-  // Save to purchase history
+  // Save to purchase history (only checked items)
   saveOrderToHistory({
-    items: [...cart],
+    items: [...checkedItems],
     subtotal,
     shipping,
     total,
     buyer: { nama, phone, alamat, kota, kodepos, catatan }
   });
 
-  // Clear cart after checkout
-  cart = [];
+  // Remove only checked items from cart after checkout
+  cart = cart.filter(i => !i.checked);
   updateCartBadge();
   closeCheckoutModal();
   showNotif('🎉 Pesanan berhasil dikirim ke WhatsApp!');

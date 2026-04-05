@@ -241,19 +241,25 @@
   font-weight: 600;
 }
 
+/* BTN ROW (2 buttons) */
+.pc-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
 /* ADD TO CART BTN */
 .pc-add-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 11px;
+  flex: 1;
+  padding: 11px 6px;
   background: var(--bg3);
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: var(--radius-sm);
   font-family: var(--font-d);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
@@ -285,6 +291,29 @@
   50%  { transform: scale(0.97); }
   100% { transform: scale(1); }
 }
+
+/* BUY NOW BTN */
+.pc-buy-btn {
+  flex: 0 0 auto;
+  padding: 11px 12px;
+  background: var(--green);
+  border: 1px solid var(--green);
+  color: #0b2e18;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-d);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.pc-buy-btn:hover {
+  background: #9be6b5;
+  border-color: #9be6b5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(124,219,154,0.35);
+}
+.pc-buy-btn span { position: relative; z-index: 1; }
 
 /* ── RATING ROW ── */
 .pc-rating-row {
@@ -398,11 +427,17 @@
   .pc-price { font-size: 14px; }
   .pc-orig { font-size: 11px; }
   .pc-discount { font-size: 10px; }
+  .pc-btn-row { gap: 5px; margin-top: 6px; }
   .pc-add-btn {
-    padding: 9px 6px;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    margin-top: 6px;
+    padding: 8px 4px;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    border-radius: 8px;
+  }
+  .pc-buy-btn {
+    padding: 8px 8px;
+    font-size: 10px;
+    letter-spacing: 0.3px;
     border-radius: 8px;
   }
   .pc-wish {

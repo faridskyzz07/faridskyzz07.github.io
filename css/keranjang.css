@@ -199,6 +199,95 @@
 }
 .cp-item-del:hover { background: rgba(255,77,77,0.1); border-color: var(--red); color: var(--red); }
 
+/* CART SELECT BAR */
+.cp-select-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(124,219,154,0.05);
+  border: 1px solid rgba(124,219,154,0.15);
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+}
+.cp-check-all-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.cp-check-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.cp-selected-info {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* CUSTOM CHECKBOX */
+.cp-item-checkbox,
+.cp-check-all-wrap {
+  position: relative;
+}
+.cp-item-checkbox {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.cp-item-checkbox input[type="checkbox"],
+.cp-check-all-wrap input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+.cp-checkmark {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.cp-checkmark::after {
+  content: '✓';
+  font-size: 11px;
+  font-weight: 800;
+  color: #0b2e18;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+input[type="checkbox"]:checked + .cp-checkmark {
+  background: var(--green);
+  border-color: var(--green);
+}
+input[type="checkbox"]:checked + .cp-checkmark::after {
+  opacity: 1;
+}
+input[type="checkbox"]:indeterminate + .cp-checkmark {
+  background: rgba(124,219,154,0.3);
+  border-color: var(--green);
+}
+input[type="checkbox"]:indeterminate + .cp-checkmark::after {
+  content: '–';
+  opacity: 1;
+}
+
+/* DIMMED UNCHECKED ITEMS */
+.cp-item-unchecked {
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.cp-item-unchecked:hover { opacity: 0.7; }
+
 /* CART FOOTER */
 .cp-footer {
   border-top: 1px solid var(--border);
@@ -916,7 +1005,12 @@
   .cp-items { padding: 12px 16px; gap: 10px; }
 
   /* Cart item row */
-  .cp-item { padding: 10px; gap: 10px; }
+  .cp-item { padding: 10px; gap: 8px; }
+  .cp-select-bar { padding: 8px 10px; }
+  .cp-check-label { font-size: 12px; }
+  .cp-selected-info { font-size: 11px; }
+  .cp-checkmark { width: 16px; height: 16px; border-radius: 4px; }
+  .cp-checkmark::after { font-size: 10px; }
   .cp-item-thumb { width: 48px; height: 48px; }
   .cp-item-name { font-size: 12px; }
   .cp-item-price { font-size: 13px; }
