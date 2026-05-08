@@ -99,6 +99,236 @@ body.light-mode .search-dropdown {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
+/* ── LIGHT MODE: TESTIMONIAL ── */
+body.light-mode .testi-card {
+  background: #f0f0eb;
+  border-color: rgba(0,0,0,0.08);
+}
+body.light-mode .testi-card p {
+  color: #2a2a2a;
+  opacity: 1;
+}
+body.light-mode .testi-author strong {
+  color: var(--text);
+}
+
+/* ── LIGHT MODE: CART & PANELS ── */
+body.light-mode .cart-panel,
+body.light-mode .wishlist-panel,
+body.light-mode .history-panel {
+  background: var(--bg2);
+  border-color: var(--border);
+}
+body.light-mode .cp-item {
+  background: var(--bg3);
+  border-color: var(--border);
+}
+body.light-mode .cp-item-name,
+body.light-mode .qty-num {
+  color: var(--text);
+}
+body.light-mode .qty-btn {
+  background: var(--bg2);
+  border-color: var(--border);
+  color: var(--text);
+}
+body.light-mode .cp-close {
+  background: var(--bg3);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+/* ── LIGHT MODE: CHECKOUT MODAL ── */
+body.light-mode .checkout-modal,
+body.light-mode .checkout-modal * {
+  color: var(--text);
+}
+body.light-mode .cmo-order-item,
+body.light-mode .cmo-confirm-row {
+  color: var(--text);
+}
+body.light-mode .cmo-confirm-row .lbl {
+  color: var(--muted);
+}
+body.light-mode .cmo-confirm-row .val {
+  color: var(--text);
+}
+
+/* ── LIGHT MODE: FORM INPUTS ── */
+body.light-mode input,
+body.light-mode textarea,
+body.light-mode select {
+  background: #fff;
+  border-color: rgba(0,0,0,0.15);
+  color: var(--text);
+}
+body.light-mode input::placeholder,
+body.light-mode textarea::placeholder {
+  color: #999;
+}
+body.light-mode input:focus,
+body.light-mode textarea:focus {
+  border-color: var(--green);
+  background: #fff;
+}
+
+/* ── LIGHT MODE: HISTORY & RATING ── */
+body.light-mode .hist-order-card {
+  background: var(--bg3);
+  border-color: var(--border);
+}
+body.light-mode .hist-order-header,
+body.light-mode .hist-order-buyer,
+body.light-mode .hist-item-name,
+body.light-mode .hist-item-sub,
+body.light-mode .hist-item-comment {
+  color: var(--text);
+}
+body.light-mode .hist-item-comment {
+  color: var(--muted);
+}
+body.light-mode .rating-modal,
+body.light-mode .rating-prod-name,
+body.light-mode .ratingComment,
+body.light-mode .ratingName,
+body.light-mode #ratingTextLabel {
+  color: var(--text);
+}
+body.light-mode .rating-prod-card {
+  background: var(--bg3);
+}
+
+/* ── LIGHT MODE: NOTIFICATION ── */
+body.light-mode .notif {
+  background: #fff;
+  border-color: rgba(0,0,0,0.08);
+  color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ── LIGHT MODE: PRODUCT CARD ── */
+body.light-mode .product-card {
+  background: #fff;
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+body.light-mode .product-card:hover {
+  box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  border-color: rgba(45,158,86,0.3);
+}
+body.light-mode .pc-img {
+  background: #f0f0eb;
+}
+body.light-mode .pc-img-fallback {
+  background: linear-gradient(135deg, #e8e8e3, #f0f0eb);
+}
+body.light-mode .pc-name {
+  color: var(--text);
+}
+body.light-mode .pc-add-btn {
+  background: #f0f0eb;
+  border-color: rgba(0,0,0,0.1);
+  color: var(--text);
+}
+body.light-mode .pc-add-btn:hover {
+  color: #0b2e18;
+  border-color: var(--green);
+}
+body.light-mode .pc-wish {
+  background: rgba(255,255,255,0.85);
+  border-color: rgba(0,0,0,0.1);
+  color: #666;
+}
+
+/* ── LIGHT MODE: CATEGORY PAGE ── */
+body.light-mode .cat-page-header {
+  background: #fff;
+  border-color: var(--border);
+}
+body.light-mode #catPageTitle {
+  color: var(--text);
+}
+body.light-mode .pill {
+  background: #f0f0eb;
+  border-color: rgba(0,0,0,0.1);
+  color: var(--muted);
+}
+body.light-mode .pill.active {
+  background: var(--green);
+  color: #0b2e18;
+  border-color: var(--green);
+}
+body.light-mode .sort-select {
+  background: #f0f0eb;
+  border-color: rgba(0,0,0,0.1);
+  color: var(--text);
+}
+body.light-mode .sort-select option {
+  background: #fff;
+  color: var(--text);
+}
+
+/* ── LIGHT MODE: BENEFIT CARD ── */
+body.light-mode .benefit-card {
+  background: #fff;
+  border-color: rgba(0,0,0,0.08);
+}
+body.light-mode .benefit-card h4 {
+  color: var(--text);
+}
+
+/* ── LIGHT MODE: SEARCH DROPDOWN ── */
+body.light-mode .sdrop-item {
+  border-color: rgba(0,0,0,0.06);
+}
+body.light-mode .sdrop-item:hover {
+  background: rgba(45,158,86,0.07);
+}
+body.light-mode .sdrop-name {
+  color: var(--text);
+}
+body.light-mode .sdrop-see-all {
+  background: rgba(45,158,86,0.04);
+}
+body.light-mode .sdrop-see-all:hover {
+  background: rgba(45,158,86,0.10);
+}
+
+/* ── LIGHT MODE: WISHLIST PANEL ── */
+body.light-mode .wl-item {
+  background: var(--bg3);
+  border-color: var(--border);
+}
+body.light-mode .wl-in-cart-tag {
+  color: var(--green);
+}
+
+/* ── LIGHT MODE: STATS BAR ── */
+body.light-mode .stat-item {
+  border-color: var(--border);
+}
+
+/* ── LIGHT MODE: NAV SEARCH ── */
+body.light-mode .nav-search input {
+  background: #fff;
+  border-color: rgba(0,0,0,0.12);
+  color: var(--text);
+}
+body.light-mode .nav-search input:focus {
+  border-color: rgba(45,158,86,0.5);
+  background: #fff;
+}
+body.light-mode .nav-icon-btn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+  color: #555;
+}
+body.light-mode .nav-icon-btn:hover {
+  background: rgba(45,158,86,0.1);
+  border-color: rgba(45,158,86,0.4);
+  color: var(--green);
+}
+
 /* ── THEME TOGGLE BUTTON ── */
 .theme-toggle-btn {
   position: relative;
@@ -602,7 +832,8 @@ img { display: block; max-width: 100%; }
 }
 .testi-card p {
   font-size: 15px;
-  color: rgba(240,237,232,0.8);
+  color: var(--text);
+  opacity: 0.85;
   line-height: 1.7;
   font-style: italic;
   margin-bottom: 20px;
