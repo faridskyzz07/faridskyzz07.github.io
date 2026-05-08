@@ -464,3 +464,15 @@
 @media (max-width: 340px) {
   .products-grid { grid-template-columns: 1fr; }
 }
+/* ── SEARCH HIGHLIGHT ANIMATION ── */
+@keyframes searchHighlight {
+  0%   { box-shadow: 0 0 0 0 rgba(124,219,154,0.7), 0 16px 48px rgba(0,0,0,0.45); border-color: var(--green); }
+  30%  { box-shadow: 0 0 0 8px rgba(124,219,154,0.25), 0 16px 48px rgba(0,0,0,0.45); border-color: var(--green); }
+  70%  { box-shadow: 0 0 0 4px rgba(124,219,154,0.15), 0 16px 48px rgba(0,0,0,0.45); border-color: var(--green); }
+  100% { box-shadow: none; border-color: var(--border); }
+}
+.product-card.search-highlight {
+  animation: searchHighlight 2s ease forwards !important;
+  border-color: var(--green) !important;
+  transform: translateY(-5px);
+}

@@ -43,6 +43,13 @@
     <div class="search-dropdown" id="searchDropdown"></div>
   </div>
   <div class="nav-actions">
+    <!-- THEME TOGGLE -->
+    <button class="theme-toggle-btn nav-icon-btn" onclick="toggleTheme()" title="Ganti Mode Tampilan">
+      <!-- Moon icon (dark mode) -->
+      <svg class="icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+      <!-- Sun icon (light mode) -->
+      <svg class="icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
     <!-- WISHLIST BTN -->
     <button class="nav-icon-btn" id="wishlistBtn" onclick="openWishlistPanel()" title="Wishlist">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
@@ -258,44 +265,31 @@
         <div class="testi-quote">"</div>
         <p>Produknya original dan pengiriman cepat banget! Packing juga rapi. Sudah order 5x dan selalu puas!</p>
         <div class="testi-author">
-          <div class="testi-avatar">SW</div>
-          <div><strong>Sarah W.</strong><span>Jakarta Selatan</span></div>
+          <div class="testi-avatar">RK</div>
+          <div><strong>Riski Kopling</strong><span>Jakarta Selatan</span></div>
         </div>
       </div>
       <div class="testi-card">
         <div class="testi-quote">"</div>
         <p>Pelayanan ramah, produk sesuai ekspektasi. CS-nya responsif 24 jam. Highly recommended!</p>
         <div class="testi-author">
-          <div class="testi-avatar">BG</div>
-          <div><strong>Bahlil❤Ghufron</strong><span>Bandung</span></div>
+          <div class="testi-avatar">LB</div>
+          <div><strong>Lil Bah</strong><span>Bandung</span></div>
         </div>
       </div>
       <div class="testi-card">
         <div class="testi-quote">"</div>
         <p>Harga terjangkau dengan kualitas premium. Gaming gear di sini terbaik se-Indonesia! Love it!</p>
         <div class="testi-author">
-          <div class="testi-avatar">NK</div>
-          <div><strong>Nina K.</strong><span>Surabaya</span></div>
+          <div class="testi-avatar">FM</div>
+          <div><strong>Farhan Mie Ayam</strong><span>Surabaya</span></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- NEWSLETTER -->
-  <section class="newsletter-section">
-    <div class="nl-glow"></div>
-    <div class="nl-content">
-      <div class="nl-badge">📧 Newsletter</div>
-      <h2>Dapatkan Promo <span class="title-outline">Terbaru!</span></h2>
-      <p>Subscribe dan dapatkan diskon 15% untuk pembelian pertamamu</p>
-      <form class="nl-form" onsubmit="subscribeNewsletter(event)">
-        <input type="email" placeholder="Masukkan email kamu..." required>
-        <button type="submit">Subscribe →</button>
-      </form>
-    </div>
-  </section>
-
-</div><!-- end #homePage -->
+  <!-- end #homePage -->
 
 <!-- ===== CATEGORY PAGE ===== -->
 <div id="categoryPage" class="hidden">

@@ -74,3 +74,31 @@ function initReveal() {
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initReveal, 1300);
 });
+/* ── DARK / LIGHT MODE TOGGLE ── */
+function initTheme() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  if (saved === 'light') document.body.classList.add('light-mode');
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  // Update navbar scroll bg
+  const scrolled = window.scrollY > 40;
+  navbar.style.background = isLight
+    ? (scrolled ? 'rgba(245,245,240,0.99)' : 'rgba(245,245,240,0.92)')
+    : (scrolled ? 'rgba(10,10,10,0.97)'   : 'rgba(13,13,13,0.88)');
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', initTheme);
+
+// Update navbar scroll handler for light mode
+window.addEventListener('scroll', () => {
+  const isLight = document.body.classList.contains('light-mode');
+  if (window.scrollY > 40) {
+    navbar.style.background = isLight ? 'rgba(245,245,240,0.99)' : 'rgba(10,10,10,0.97)';
+  } else {
+    navbar.style.background = isLight ? 'rgba(245,245,240,0.92)' : 'rgba(13,13,13,0.88)';
+  }
+});

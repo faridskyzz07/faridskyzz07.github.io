@@ -191,15 +191,30 @@ function handleSearch(val) {
     });
   });
 
-  if (results.length === 0) { drop.classList.remove('open'); return; }
+  if (results.length === 0) {
+    drop.innerHTML = `<div class="sdrop-item" style="justify-content:center;color:var(--muted);font-size:13px;padding:16px">Produk tidak ditemukan</div>`;
+    drop.classList.add('open');
+    return;
+  }
 
-  drop.innerHTML = results.slice(0, 7).map(p => `
+  const shown = results.slice(0, 6);
+  drop.innerHTML = shown.map(p => `
     <div class="sdrop-item" onclick="selectSearch('${p.cat}', '${p.id}')">
-      <span>${p.emoji}</span>
-      <span>${p.name}</span>
-      <span class="sdrop-cat">${CATEGORY_LABELS[p.cat].replace(/^[^a-zA-Z]+/, '')}</span>
+      <div class="sdrop-thumb">
+        <img src="${p.img}" alt="${p.name}"
+          onerror="this.style.display='none'; this.parentElement.textContent='${p.emoji}'">
+      </div>
+      <div class="sdrop-info">
+        <div class="sdrop-name">${p.name}</div>
+        <div class="sdrop-price">${fmt(p.price)}</div>
+        <span class="sdrop-cat">${(CATEGORY_LABELS[p.cat] || p.cat).replace(/^[^\w]+/, '')}</span>
+      </div>
     </div>
-  `).join('');
+  `).join('') + (results.length > 6 ? `
+    <div class="sdrop-see-all" onclick="doSearch()">
+      Lihat semua ${results.length} hasil →
+    </div>` : '');
+
   drop.classList.add('open');
 }
 
@@ -207,7 +222,6 @@ function doSearch() {
   const val = document.getElementById('searchInput').value.toLowerCase();
   if (!val) return;
 
-  // find first category match
   for (const [cat, prods] of Object.entries(PRODUCTS)) {
     const match = prods.find(p => p.name.toLowerCase().includes(val) || p.desc.toLowerCase().includes(val));
     if (match) { openCategory(cat); break; }
@@ -216,9 +230,21 @@ function doSearch() {
 }
 
 function selectSearch(cat, id) {
-  openCategory(cat);
   document.getElementById('searchInput').value = '';
   document.getElementById('searchDropdown').classList.remove('open');
+
+  // Open category page first
+  openCategory(cat);
+
+  // After render, scroll to the product card and highlight it
+  setTimeout(() => {
+    const addBtn = document.getElementById(`addbtn-${id}`);
+    const card = addBtn ? addBtn.closest('.product-card') : null;
+    if (!card) return;
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.classList.add('search-highlight');
+    setTimeout(() => card.classList.remove('search-highlight'), 2000);
+  }, 380);
 }
 
 /* ── WISHLIST ── (managed in wishlist.js) ── */
